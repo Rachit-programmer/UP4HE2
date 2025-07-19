@@ -171,40 +171,64 @@ function gotoDoctors() {
   document.getElementById("screen").innerHTML = `
     <h2>👨‍⚕️ Doctors</h2>
     <div class="card">
-      <span style='float:left;font-size:30px;margin-right:10px;'>👤</span>
-      <div style='float:right;text-align:right;'>
-        <button onclick="alert('Dr. Anjali Sharma
+      <div style='display: flex; align-items: center; justify-content: space-between;'>
+        <div style='display: flex; align-items: center;'>
+          <span style='font-size:30px;margin-right:10px;'>👤</span>
+          <div>
+            <strong>Dr. Anjali Sharma</strong><br>🩺 General Physician
+          </div>
+        </div>
+        <div style='text-align:right;'>
+          <button onclick="alert('Dr. Anjali Sharma
 Call: +91 9123456789')">📞 Call</button><br>
-        <button>💬 Chat</button>
+          <button>💬 Chat</button>
+        </div>
       </div>
-      Dr. Anjali Sharma<br>🩺 General Physician
     </div>
     <div class="card">
-      <span style='float:left;font-size:30px;margin-right:10px;'>👤</span>
-      <div style='float:right;text-align:right;'>
-        <button onclick="alert('Dr. Rakesh Verma
+      <div style='display: flex; align-items: center; justify-content: space-between;'>
+        <div style='display: flex; align-items: center;'>
+          <span style='font-size:30px;margin-right:10px;'>👤</span>
+          <div>
+            <strong>Dr. Rakesh Verma</strong><br>❤️ Cardiologist
+          </div>
+        </div>
+        <div style='text-align:right;'>
+          <button onclick="alert('Dr. Rakesh Verma
 Call: +91 9234567890')">📞 Call</button><br>
-        <button>💬 Chat</button>
+          <button>💬 Chat</button>
+        </div>
       </div>
-      Dr. Rakesh Verma<br>❤️ Cardiologist
     </div>
     <div class="card">
-      <span style='float:left;font-size:30px;margin-right:10px;'>👤</span>
-      <div style='float:right;text-align:right;'>
-        <button onclick="alert('Dr. Sunita Mehra
+      <div style='display: flex; align-items: center; justify-content: space-between;'>
+        <div style='display: flex; align-items: center;'>
+          <span style='font-size:30px;margin-right:10px;'>👤</span>
+          <div>
+            <strong>Dr. Sunita Mehra</strong><br>👶 Pediatrician
+          </div>
+        </div>
+        <div style='text-align:right;'>
+          <button onclick="alert('Dr. Sunita Mehra
 Call: +91 9345678901')">📞 Call</button><br>
-        <button>💬 Chat</button>
+          <button>💬 Chat</button>
+        </div>
       </div>
-      Dr. Sunita Mehra<br>👶 Pediatrician
     </div>
     <div class="card">
-      <span style='float:left;font-size:30px;margin-right:10px;'>👤</span>
-      <div style='float:right;text-align:right;'>
-        <button onclick="alert('Dr. Arjun Kapoor
+      <div style='display: flex; align-items: center; justify-content: space-between;'>
+        <div style='display: flex; align-items: center;'>
+          <span style='font-size:30px;margin-right:10px;'>👤</span>
+          <div>
+            <strong>Dr. Arjun Kapoor</strong><br>🦴 Orthopedic
+          </div>
+        </div>
+        <div style='text-align:right;'>
+          <button onclick="alert('Dr. Arjun Kapoor
 Call: +91 9456789012')">📞 Call</button><br>
-        <button>💬 Chat</button>
+          <button>💬 Chat</button>
+        </div>
       </div>
-      Dr. Arjun Kapoor<br>🦴 Orthopedic
     </div>
     <button onclick="showMainApp()" style="margin-top:10px;">🔙 Back</button>
   `;
@@ -236,19 +260,19 @@ function gotoSchemes() {
 function gotoEClinic() {
   document.getElementById("screen").innerHTML = `
     <h2>🖥 E-Clinic</h2>
-    <div class="grid" style="gap: 10px;">
-      <div class="grid-item" style="width:80px;height:80px;">💊 Crocin</div>
-      <div class="grid-item" style="width:80px;height:80px;">💊 Combiflam</div>
-      <div class="grid-item" style="width:80px;height:80px;">💊 Digene</div>
-      <div class="grid-item" style="width:80px;height:80px;">💊 Dolo 650</div>
-      <div class="grid-item" style="width:80px;height:80px;">💊 Zincovit</div>
-      <div class="grid-item" style="width:80px;height:80px;">💊 ORS Sachet</div>
-      <div class="grid-item" style="width:80px;height:80px;">💊 Cetrizine</div>
-      <div class="grid-item" style="width:80px;height:80px;">💊 Benadryl</div>
-      <div class="grid-item" style="width:80px;height:80px;">💊 Paracetamol</div>
-      <div class="grid-item" style="width:80px;height:80px;">💊 Ibuprofen</div>
-      <div class="grid-item" style="width:80px;height:80px;">💊 Amoxicillin</div>
-      <div class="grid-item" style="width:80px;height:80px;">💊 Rantac</div>
+    <div class="grid" style="gap: 10px; justify-content: center;">
+      <div class="grid-item" style="width:70px;height:70px;">💊 Crocin</div>
+      <div class="grid-item" style="width:70px;height:70px;">💊 Combiflam</div>
+      <div class="grid-item" style="width:70px;height:70px;">💊 Digene</div>
+      <div class="grid-item" style="width:70px;height:70px;">💊 Dolo 650</div>
+      <div class="grid-item" style="width:70px;height:70px;">💊 Zincovit</div>
+      <div class="grid-item" style="width:70px;height:70px;">💊 ORS Sachet</div>
+      <div class="grid-item" style="width:70px;height:70px;">💊 Cetrizine</div>
+      <div class="grid-item" style="width:70px;height:70px;">💊 Benadryl</div>
+      <div class="grid-item" style="width:70px;height:70px;">💊 Paracetamol</div>
+      <div class="grid-item" style="width:70px;height:70px;">💊 Ibuprofen</div>
+      <div class="grid-item" style="width:70px;height:70px;">💊 Amoxicillin</div>
+      <div class="grid-item" style="width:70px;height:70px;">💊 Rantac</div>
     </div>
     <button onclick="showMainApp()" style="margin-top:10px;">🔙 Back</button>
   `;
