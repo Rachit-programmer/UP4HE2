@@ -1,3 +1,4 @@
+// FULL FILE WITH STATIC CHATBOT INTEGRATED
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -158,12 +159,65 @@
         <h2>Welcome, ${username}</h2>
         <div class="grid">
           <div class="grid-item" onclick="gotoChat()">💬<div>Quick Chat</div></div>
-          <div class="grid-item">👨‍⚕️<div>Doctors</div></div>
-          <div class="grid-item">🏥<div>Hospitals</div></div>
-          <div class="grid-item">📃<div>Schemes</div></div>
-          <div class="grid-item">🖥<div>E-Clinic</div></div>
+          <div class="grid-item" onclick="gotoDoctors()">👨‍⚕️<div>Doctors</div></div>
+          <div class="grid-item" onclick="gotoHospitals()">🏥<div>Hospitals</div></div>
+          <div class="grid-item" onclick="gotoSchemes()">📃<div>Schemes</div></div>
+          <div class="grid-item" onclick="gotoEClinic()">🖥<div>E-Clinic</div></div>
           <div class="grid-item">🕓<div>History</div></div>
         </div>
+      `;
+    }
+
+    function gotoDoctors() {
+      document.getElementById("screen").innerHTML = `
+        <h2>Doctors</h2>
+        <div class="card">Dr. Anjali Sharma<br>General Physician</div>
+        <div class="card">Dr. Rakesh Verma<br>Cardiologist</div>
+        <div class="card">Dr. Sunita Mehra<br>Pediatrician</div>
+        <div class="card">Dr. Arjun Kapoor<br>Orthopedic</div>
+        <button onclick="showMainApp()" style="margin-top:10px;">Back</button>
+      `;
+    }
+
+    function gotoHospitals() {
+      document.getElementById("screen").innerHTML = `
+        <h2>Hospitals</h2>
+        <div class="card">City Hospital<br><small>Sector 12, Noida</small></div>
+        <div class="card">Healing Touch Clinic<br><small>Sector 18, Noida</small></div>
+        <div class="card">Care Plus Hospital<br><small>Sector 22, Noida</small></div>
+        <div class="card">Green Life Hospital<br><small>Sector 37, Noida</small></div>
+        <button onclick="showMainApp()" style="margin-top:10px;">Back</button>
+      `;
+    }
+
+    function gotoSchemes() {
+      document.getElementById("screen").innerHTML = `
+        <h2>Government Schemes</h2>
+        <div class="card">Ayushman Bharat<br>Free health cover up to ₹5 lakh per family per year.</div>
+        <div class="card">Jan Aushadhi Yojana<br>Affordable medicines through special stores.</div>
+        <div class="card">RBSK<br>Health screening and treatment for children.</div>
+        <div class="card">PMJAY<br>Health insurance for economically vulnerable Indians.</div>
+        <p style="margin-top:10px; font-size:14px;">To avail these, visit <a href="https://www.myscheme.gov.in/about" target="_blank">myscheme.gov.in</a></p>
+        <button onclick="showMainApp()" style="margin-top:10px;">Back</button>
+      `;
+    }
+
+    function gotoEClinic() {
+      document.getElementById("screen").innerHTML = `
+        <h2>E-Clinic</h2>
+        <div class="card">Crocin</div>
+        <div class="card">Combiflam</div>
+        <div class="card">Digene</div>
+        <div class="card">Dolo 650</div>
+        <div class="card">Zincovit</div>
+        <div class="card">ORS Sachet</div>
+        <div class="card">Cetrizine</div>
+        <div class="card">Benadryl</div>
+        <div class="card">Paracetamol</div>
+        <div class="card">Ibuprofen</div>
+        <div class="card">Amoxicillin</div>
+        <div class="card">Rantac</div>
+        <button onclick="showMainApp()" style="margin-top:10px;">Back</button>
       `;
     }
 
