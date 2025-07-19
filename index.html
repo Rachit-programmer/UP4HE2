@@ -1,1 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UP4HE2</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    body {
+      background: linear-gradient(to bottom, #d0f0ff, #d0ffd8);
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+    }
+    button {
+      padding: 15px;
+      margin: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      width: 100%;
+    }
+    .red-button { background: red; color: white; position: absolute; bottom: 20px; left: 0; right: 0; margin: auto; width: 90%; }
+    .login-input { padding: 10px; margin: 10px 0; width: 90%; border-radius: 8px; border: 1px solid #ccc; }
+    .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px; }
+    .grid-item {
+      background: white;
+      width: 100px;
+      height: 100px;
+      border-radius: 20px;
+      box-shadow: 4px 4px 10px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      margin: 10px auto;
+      border-radius: 15px;
+      box-shadow: 4px 4px 12px rgba(0,0,0,0.2);
+      text-align: left;
+      max-width: 500px;
+    }
+    .doctor-img { width: 50px; height: 50px; border-radius: 50%; margin-right: 10px; }
+    .doctor-info { display: flex; align-items: center; justify-content: space-between; }
+    .btn-group button { display: block; margin-top: 5px; background-color: #007BFF; color: white; padding: 6px 12px; border-radius: 6px; border: none; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="container" id="screen"></div>
+
+  <script>
+    let username = "", useremail = "";
+    function loadHome() {
+      document.getElementById("screen").innerHTML = `
+        <h1>UP4HE2</h1>
+        <button class="red-button" onclick="gotoAmbulance()">Emergency Ambulance</button>
+        <button onclick='gotoLogin()'>Normal Login</button>
+      `;
+    }
+
+    function gotoLogin() {
+      document.getElementById("screen").innerHTML = `
+        <h2>Login</h2>
+        <input type="text" class="login-input" id="name" placeholder="Enter your Name"><br>
+        <input type="email" class="login-input" id="mail" placeholder="Enter your Email"><br>
+        <button onclick="loginUser()">Submit</button>
+      `;
+    }
+
+    function loginUser() {
+      username = document.getElementById("name").value;
+      useremail = document.getElementById("mail").value;
+      showMainApp();
+    }
+
+    function gotoAmbulance() {
+      document.getElementById("screen").innerHTML = `<h2>Finding Ambulance...</h2><p>Please wait...</p>`;
+      setTimeout(() => {
+        const mins = Math.floor(Math.random() * 4) + 5;
+        document.getElementById("screen").innerHTML = `
+          <h2>Ambulance Found!</h2>
+          <p>Arriving in approximately ${mins} minutes.</p>
+        `;
+      }, 2000);
+    }
+
+    function showMainApp() {
+      document.getElementById("screen").innerHTML = `
+        <h2>Welcome, ${username}</h2>
+        <div class="grid">
+          <div class="grid-item" onclick="gotoChat()">💬<div>Quick Chat</div></div>
+          <div class="grid-item" onclick="gotoDoctors()">👨‍⚕️<div>Doctors</div></div>
+          <div class="grid-item" onclick="gotoHospitals()">🏥<div>Hospitals</div></div>
+          <div class="grid-item" onclick="gotoSchemes()">📃<div>Schemes</div></div>
+          <div class="grid-item">🖥<div>E-Clinic</div></div>
+          <div class="grid-item">🕓<div>History</div></div>
+        </div>
+      `;
+    }
+
+    function gotoChat() {
+      document.getElementById("screen").innerHTML = `
+        <h2>Quick Chat</h2>
+        <p>Chatbot interface coming soon...</p>
+        <p>[Space for chatbot link]</p>
+        <button onclick="showMainApp()">Back</button>
+      `;
+    }
+
+    function gotoDoctors() {
+      document.getElementById("screen").innerHTML = `
+        <h2>Doctors</h2>
+        ${["Dr. Sharma", "Dr. Verma", "Dr. Khan", "Dr. Mehta"].map(name => `
+          <div class="card">
+            <div class="doctor-info">
+              <div style="display:flex; align-items:center;">
+                <img src="https://via.placeholder.com/50" class="doctor-img">
+                <strong>${name}</strong>
+              </div>
+              <div class="btn-group">
+                <button>Chat</button>
+                <button>Call</button>
+              </div>
+            </div>
+          </div>`).join('')}
+        <button onclick="showMainApp()">Back</button>
+      `;
+    }
+
+    function gotoHospitals() {
+      document.getElementById("screen").innerHTML = `
+        <h2>Hospitals</h2>
+        ${["City Hospital, Sector 5", "Green Care, Noida", "Metro Hospital, Delhi", "Lifeline Center, Lucknow"].map(hosp => `
+          <div class="card">
+            <strong>${hosp.split(",")[0]}</strong><br>
+            <small>${hosp.split(",")[1]}</small>
+          </div>`).join('')}
+        <button onclick="showMainApp()">Back</button>
+      `;
+    }
+
+    function gotoSchemes() {
+      const schemes = [
+        { name: "Ayushman Bharat", desc: "Provides health insurance up to 5 lakh for poor families." },
+        { name: "Janani Suraksha Yojana", desc: "Promotes institutional delivery among poor pregnant women." },
+        { name: "RBSK", desc: "Covers early detection and management of child health problems." },
+        { name: "PM National Dialysis", desc: "Offers free dialysis for BPL patients." }
+      ];
+      document.getElementById("screen").innerHTML = `
+        <h2>Govt Schemes</h2>
+        ${schemes.map(s => `
+          <div class="card">
+            <strong>${s.name}</strong><br>
+            <small>${s.desc}</small>
+          </div>`).join('')}
+        <button onclick="showMainApp()">Back</button>
+      `;
+    }
+
+    loadHome();
+  </script>
+</body>
+</html>
 
