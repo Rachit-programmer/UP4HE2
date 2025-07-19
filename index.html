@@ -7,10 +7,9 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
     body {
-      height: 100vh;
+      min-height: 100vh;
       background: linear-gradient(to bottom, #c8ebf7, #c8f7d1);
       text-align: center;
-      padding: 0;
       display: flex;
       flex-direction: column;
     }
@@ -19,10 +18,6 @@
       width: 100%;
       max-width: 600px;
       margin: auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
       padding: 20px;
     }
     button {
@@ -86,14 +81,11 @@
       box-shadow: 4px 4px 12px rgba(0,0,0,0.2);
       text-align: left;
       max-width: 500px;
-      height: 120px;
+      height: 140px;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
-    .doctor-img { width: 50px; height: 50px; border-radius: 50%; margin-right: 10px; }
-    .doctor-info { display: flex; align-items: center; justify-content: space-between; }
-    .btn-group button { display: block; margin-top: 5px; background-color: #007BFF; color: white; padding: 6px 12px; border-radius: 6px; border: none; font-size: 12px; }
     .big-image {
       width: 100%;
       height: 30vh;
@@ -103,22 +95,24 @@
       align-items: center;
       justify-content: center;
     }
-    .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    #chat-area {
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
       background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-      z-index: 10;
+      text-align: left;
+      margin-bottom: 10px;
+    }
+    #chat-input {
+      padding: 10px;
+      width: 75%;
+      margin-right: 5px;
     }
   </style>
 </head>
 <body>
   <div class="container" id="screen"></div>
-  <div id="popup-container"></div>
   <script>
     let username = "", useremail = "";
 
@@ -153,26 +147,10 @@
         const mins = Math.floor(Math.random() * 4) + 5;
         document.getElementById("screen").innerHTML = `
           <h2>🚑 Ambulance Dispatched!</h2>
-          <p style="font-size: 18px; margin-top: 10px;">An ambulance has been successfully located for your emergency.</p>
-          <p style="font-size: 16px; margin-top: 10px;">Estimated Time of Arrival: <strong>${mins} minutes</strong></p>
-          <p style="margin-top: 20px;">Please remain calm and ensure your location services are turned on. Our responders are on the way and may contact you soon.</p>
-          <p style="margin-top: 20px;">If you feel the situation is worsening, call 108 immediately for direct assistance.</p>
+          <p>Your request has been received and is being processed.</p>
+          <p><strong>ETA:</strong> ${mins} minutes</p>
         `;
       }, 2000);
-    }
-
-    function showPopup(name) {
-      document.getElementById("popup-container").innerHTML = `
-        <div class="popup">
-          <strong>${name}</strong><br>
-          Number: +91 9876543210<br>
-          <button onclick="closePopup()">Close</button>
-        </div>
-      `;
-    }
-
-    function closePopup() {
-      document.getElementById("popup-container").innerHTML = "";
     }
 
     function showMainApp() {
@@ -180,10 +158,10 @@
         <h2>Welcome, ${username}</h2>
         <div class="grid">
           <div class="grid-item" onclick="gotoChat()">💬<div>Quick Chat</div></div>
-          <div class="grid-item" onclick="gotoDoctors()">👨‍⚕️<div>Doctors</div></div>
-          <div class="grid-item" onclick="gotoHospitals()">🏥<div>Hospitals</div></div>
-          <div class="grid-item" onclick="gotoSchemes()">📃<div>Schemes</div></div>
-          <div class="grid-item" onclick="gotoEClinic()">🖥<div>E-Clinic</div></div>
+          <div class="grid-item">👨‍⚕️<div>Doctors</div></div>
+          <div class="grid-item">🏥<div>Hospitals</div></div>
+          <div class="grid-item">📃<div>Schemes</div></div>
+          <div class="grid-item">🖥<div>E-Clinic</div></div>
           <div class="grid-item">🕓<div>History</div></div>
         </div>
       `;
@@ -192,73 +170,49 @@
     function gotoChat() {
       document.getElementById("screen").innerHTML = `
         <h2>Quick Chat</h2>
-        <p>Chatbot interface coming soon...</p>
-        <p>[Space for chatbot link]</p>
-        <button onclick="showMainApp()">Back</button>
+        <div id="chat-area"></div>
+        <input id="chat-input" type="text" placeholder="Ask a health question...">
+        <button onclick="sendStaticReply()">Send</button>
+        <button onclick="showMainApp()" style="margin-top:10px;">Back</button>
       `;
     }
 
-    function gotoDoctors() {
-      document.getElementById("screen").innerHTML = `
-        <h2>Doctors</h2>
-        ${["Dr. Sharma", "Dr. Verma", "Dr. Khan", "Dr. Mehta"].map(name => `
-          <div class="card">
-            <div class="doctor-info">
-              <div style="display:flex; align-items:center;">
-                <img src="https://via.placeholder.com/50" class="doctor-img">
-                <strong>${name}</strong>
-              </div>
-              <div class="btn-group">
-                <button>Chat</button>
-                <button onclick="showPopup('${name}')">Call</button>
-              </div>
-            </div>
-          </div>`).join('')}
-        <button onclick="showMainApp()">Back</button>
-      `;
-    }
+    function sendStaticReply() {
+      const input = document.getElementById("chat-input");
+      const area = document.getElementById("chat-area");
+      const question = input.value.trim();
+      if (!question) return;
+      area.innerHTML += `<div><strong>You:</strong> ${question}</div>`;
+      input.value = "";
 
-    function gotoHospitals() {
-      document.getElementById("screen").innerHTML = `
-        <h2>Hospitals</h2>
-        ${["City Hospital, Sector 5", "Green Care, Noida", "Metro Hospital, Delhi", "Lifeline Center, Lucknow"].map(hosp => `
-          <div class="card">
-            <strong>${hosp.split(",")[0]}</strong><br>
-            <small>${hosp.split(",")[1]}</small>
-          </div>`).join('')}
-        <button onclick="showMainApp()">Back</button>
-      `;
-    }
+      let answer = "Sorry, I don't know that one yet.";
+      const staticAnswers = {
+        "what is fever": "Fever is a temporary increase in your body temperature, often due to illness.",
+        "what is headache": "Headache is pain in any region of the head.",
+        "what is cold": "A common cold is a viral infection of your nose and throat.",
+        "what is cough": "Coughing is a reflex that helps clear your airways.",
+        "what is diabetes": "Diabetes is a condition that affects how your body uses blood sugar.",
+        "what is malaria": "Malaria is a mosquito-borne disease caused by a parasite.",
+        "what is dengue": "Dengue is a viral infection spread by mosquitoes, causing flu-like symptoms.",
+        "what is typhoid": "Typhoid fever is a bacterial infection due to Salmonella typhi.",
+        "what is asthma": "Asthma is a condition in which your airways narrow and swell and produce extra mucus.",
+        "what is anemia": "Anemia is a condition where you lack enough healthy red blood cells.",
+        "what is cholesterol": "Cholesterol is a waxy substance found in your blood.",
+        "what is blood pressure": "Blood pressure is the force of your blood pushing against the walls of your arteries.",
+        "what is stroke": "A stroke occurs when the blood supply to part of your brain is interrupted.",
+        "what is heart attack": "A heart attack happens when the blood flow to the heart is blocked.",
+        "what is covid": "COVID-19 is a respiratory illness caused by the coronavirus SARS-CoV-2.",
+        "what is vaccination": "Vaccination protects you from diseases by building immunity.",
+        "what is pneumonia": "Pneumonia is an infection that inflames the air sacs in one or both lungs.",
+        "what is tuberculosis": "Tuberculosis (TB) is a potentially serious infectious disease that mainly affects the lungs.",
+        "what is hiv": "HIV is a virus that attacks the body's immune system.",
+        "what is cancer": "Cancer is a disease where some of the body’s cells grow uncontrollably and spread."
+      };
+      const qKey = question.toLowerCase().trim();
+      if (staticAnswers[qKey]) answer = staticAnswers[qKey];
 
-    function gotoSchemes() {
-      const schemes = [
-        { name: "Ayushman Bharat", desc: "Provides health insurance up to 5 lakh for poor families." },
-        { name: "Janani Suraksha Yojana", desc: "Promotes institutional delivery among poor pregnant women." },
-        { name: "RBSK", desc: "Covers early detection and management of child health problems." },
-        { name: "PM National Dialysis", desc: "Offers free dialysis for BPL patients." }
-      ];
-      document.getElementById("screen").innerHTML = `
-        <h2>Govt Schemes</h2>
-        ${schemes.map(s => `
-          <div class="card">
-            <strong>${s.name}</strong><br>
-            <small>${s.desc}</small>
-          </div>`).join('')}
-        <button onclick="showMainApp()">Back</button>
-      `;
-    }
-
-    function gotoEClinic() {
-      const meds = ["Crocin", "Combiflam", "Digene", "Paracetamol", "Dolo 650", "Benadryl", "Vicks", "ORS", "Erythromycin", "Zincovit", "Rantac", "Avil", "Cetirizine", "Ciplox", "Pan D"];
-      document.getElementById("screen").innerHTML = `
-        <h2>E-Clinic</h2>
-        ${meds.map(med => `
-          <div class="card">
-            <strong>${med}</strong><br>
-            <small>Commonly used medicine. Consult doctor before use.</small>
-          </div>`).join('')}
-        <button onclick="showMainApp()">Back</button>
-      `;
+      area.innerHTML += `<div><strong>Bot:</strong> ${answer}</div>`;
+      area.scrollTop = area.scrollHeight;
     }
 
     loadHome();
