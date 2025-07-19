@@ -86,6 +86,10 @@
       box-shadow: 4px 4px 12px rgba(0,0,0,0.2);
       text-align: left;
       max-width: 500px;
+      height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     .doctor-img { width: 50px; height: 50px; border-radius: 50%; margin-right: 10px; }
     .doctor-info { display: flex; align-items: center; justify-content: space-between; }
@@ -99,11 +103,22 @@
       align-items: center;
       justify-content: center;
     }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      z-index: 10;
+    }
   </style>
 </head>
 <body>
   <div class="container" id="screen"></div>
-
+  <div id="popup-container"></div>
   <script>
     let username = "", useremail = "";
 
@@ -137,10 +152,27 @@
       setTimeout(() => {
         const mins = Math.floor(Math.random() * 4) + 5;
         document.getElementById("screen").innerHTML = `
-          <h2>Ambulance Found!</h2>
-          <p>Arriving in approximately ${mins} minutes.</p>
+          <h2>🚑 Ambulance Dispatched!</h2>
+          <p style="font-size: 18px; margin-top: 10px;">An ambulance has been successfully located for your emergency.</p>
+          <p style="font-size: 16px; margin-top: 10px;">Estimated Time of Arrival: <strong>${mins} minutes</strong></p>
+          <p style="margin-top: 20px;">Please remain calm and ensure your location services are turned on. Our responders are on the way and may contact you soon.</p>
+          <p style="margin-top: 20px;">If you feel the situation is worsening, call 108 immediately for direct assistance.</p>
         `;
       }, 2000);
+    }
+
+    function showPopup(name) {
+      document.getElementById("popup-container").innerHTML = `
+        <div class="popup">
+          <strong>${name}</strong><br>
+          Number: +91 9876543210<br>
+          <button onclick="closePopup()">Close</button>
+        </div>
+      `;
+    }
+
+    function closePopup() {
+      document.getElementById("popup-container").innerHTML = "";
     }
 
     function showMainApp() {
@@ -151,7 +183,7 @@
           <div class="grid-item" onclick="gotoDoctors()">👨‍⚕️<div>Doctors</div></div>
           <div class="grid-item" onclick="gotoHospitals()">🏥<div>Hospitals</div></div>
           <div class="grid-item" onclick="gotoSchemes()">📃<div>Schemes</div></div>
-          <div class="grid-item">🖥<div>E-Clinic</div></div>
+          <div class="grid-item" onclick="gotoEClinic()">🖥<div>E-Clinic</div></div>
           <div class="grid-item">🕓<div>History</div></div>
         </div>
       `;
@@ -169,16 +201,16 @@
     function gotoDoctors() {
       document.getElementById("screen").innerHTML = `
         <h2>Doctors</h2>
-        ${["Dr. Akash Sharma", "Dr. Abhishek Verma", "Dr. Ajay Mishra", "Dr. Poorab Mehta"].map(name => `
+        ${["Dr. Sharma", "Dr. Verma", "Dr. Khan", "Dr. Mehta"].map(name => `
           <div class="card">
             <div class="doctor-info">
               <div style="display:flex; align-items:center;">
-                <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" class="doctor-img">
+                <img src="https://via.placeholder.com/50" class="doctor-img">
                 <strong>${name}</strong>
               </div>
               <div class="btn-group">
                 <button>Chat</button>
-                <button>Call</button>
+                <button onclick="showPopup('${name}')">Call</button>
               </div>
             </div>
           </div>`).join('')}
@@ -211,6 +243,19 @@
           <div class="card">
             <strong>${s.name}</strong><br>
             <small>${s.desc}</small>
+          </div>`).join('')}
+        <button onclick="showMainApp()">Back</button>
+      `;
+    }
+
+    function gotoEClinic() {
+      const meds = ["Crocin", "Combiflam", "Digene", "Paracetamol", "Dolo 650", "Benadryl", "Vicks", "ORS", "Erythromycin", "Zincovit", "Rantac", "Avil", "Cetirizine", "Ciplox", "Pan D"];
+      document.getElementById("screen").innerHTML = `
+        <h2>E-Clinic</h2>
+        ${meds.map(med => `
+          <div class="card">
+            <strong>${med}</strong><br>
+            <small>Commonly used medicine. Consult doctor before use.</small>
           </div>`).join('')}
         <button onclick="showMainApp()">Back</button>
       `;
