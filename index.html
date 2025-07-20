@@ -42,7 +42,9 @@
       left: 0;
       right: 0;
       margin: auto;
-      width: 90%;
+      height: 250px;
+      width: 500px;
+      border-radius: 50px;
     }
     .login-input {
       padding: 10px;
@@ -119,9 +121,11 @@
     function loadHome() {
       document.getElementById("screen").innerHTML = `
         <h1>UP4HE2</h1>
+        <br><br>
         <div class="big-image">
         <img src="logo.png" width="250px" height="250px">
         </div>
+        <br><br>
         <button onclick='gotoLogin()'>Normal Login</button>
         <button class="red-button" onclick="gotoAmbulance()">Emergency Ambulance</button>
       `;
